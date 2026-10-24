@@ -144,8 +144,6 @@ lm3644.ko
 ocp81377.ko
 flashlight.ko
 mtk_qos.ko
-touch_boost.ko
-mtk_ioctl_touch_boost.ko
 mtk_ioctl_powerhal.ko
 slbc_mt6899.ko
 mtk_cm_ipi.ko
