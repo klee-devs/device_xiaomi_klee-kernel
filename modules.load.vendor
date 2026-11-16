@@ -220,3 +220,4 @@ nt38771_touch_klee.ko
 dio_dma_mapper.ko
 cam_log.ko
 mi_t1_gpio.ko
+si_haptic.ko
