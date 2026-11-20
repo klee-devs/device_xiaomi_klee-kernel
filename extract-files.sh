@@ -125,6 +125,15 @@ if [ -d "$SIGNING_ROOT" ]; then
     done < <(find "$SIGNING_ROOT" -type f -path '*/kernel-6.6/mtk_signing_key.pem' -print0)
 fi
 if [ -z "$SIGN_KEY" ]; then
+    CANDIDATE_KEY="$ROOT_DIR/kernel_device_modules-6.6/certs/mtk_signing_key.pem"
+    if [ -f "$CANDIDATE_KEY" ]; then
+        CANDIDATE_PUB_HASH="$(openssl pkey -in "$CANDIDATE_KEY" -pubout -outform DER 2>/dev/null | sha256sum | awk '{print $1}')"
+        if [ "$CANDIDATE_PUB_HASH" = "$SIGN_CERT_PUB_HASH" ]; then
+            SIGN_KEY="$CANDIDATE_KEY"
+        fi
+    fi
+fi
+if [ -z "$SIGN_KEY" ]; then
     error "Could not find the private key matching this kernel's module certificate"
     exit 1
 fi
